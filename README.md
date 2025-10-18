@@ -1,0 +1,1 @@
+# autodesk-inventor-assembly-load-context
