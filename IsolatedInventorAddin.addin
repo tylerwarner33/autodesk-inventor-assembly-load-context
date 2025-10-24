@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Element descriptions: https://help.autodesk.com/view/INVNTOR/2026/ENU/?guid=GUID-52422162-1784-4E8F-B495-CDB7BE9987AB -->
+<!-- Type attribute is same as Type registry key (Standard, Translator, Plugin (Server only)) -->
+<Addin Type="Standard">
+	<ClassId>{963308E2-D850-466D-A1C5-503A2E171552}</ClassId>
+	<ClientId>{963308E2-D850-466D-A1C5-503A2E171552}</ClientId>
+
+	<!-- Both of the following fields should be translated. NO OTHER FIELDS SHOULD BE TRANSLATED! -->
+	<DisplayName>IsolatedInventorAddin</DisplayName>
+	<Description>IsolatedInventorAddin</Description>
+
+	<!-- Assumes that IsolatedInventorAddin.dll is underneath Inventor\bin -->
+	<Assembly>IsolatedInventorAddin.dll</Assembly>
+
+	<!--Created for Autodesk Inventor 2023+, version 27.0-->
+	<SupportedSoftwareVersionGreaterThan>26..</SupportedSoftwareVersionGreaterThan>
+	<LoadOnStartUp>1</LoadOnStartUp>
+	<Hidden>0</Hidden>
+</Addin>

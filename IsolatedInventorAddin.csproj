@@ -1,0 +1,118 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+	<!-- InventorVersion -->
+	<Choose>
+		<When Condition="$(Configuration.Contains('2023'))">
+			<PropertyGroup>
+				<InventorVersion>2023</InventorVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2024'))">
+			<PropertyGroup>
+				<InventorVersion>2024</InventorVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2025'))">
+			<PropertyGroup>
+				<InventorVersion>2025</InventorVersion>
+				<TargetFramework>net8.0-windows</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<InventorVersion>2026</InventorVersion>
+				<TargetFramework>net8.0-windows</TargetFramework>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+	
+	<PropertyGroup>
+		<LangVersion>latestMajor</LangVersion>
+		<!-- Need a 'StartAction' & 'StartProgram' to debug a 'Library' 'OutputType' -->
+		<OutputType>Library</OutputType>
+		<StartAction>Program</StartAction>
+		<StartProgram>$(ProgramFiles)\Autodesk\Inventor $(InventorVersion)\Bin\Inventor.exe</StartProgram>
+
+		<AssemblyTitle>IsolatedInventorAddin</AssemblyTitle>
+		<Description>IsolatedInventorAddin</Description>
+		<Product>IsolatedInventorAddin</Product>
+		<Version>1.0.0</Version>
+		<FileVersion>1.0.0</FileVersion>
+
+		<!-- SDK-Style Project Properties -->
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<GenerateDependencyFile>true</GenerateDependencyFile>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+
+		<!-- Nuget Package Library Files Might Not Copy To Output Path Without This -->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<Configurations>Debug;Release;Debug-2023;Debug-2024;Debug-2025;Release-2023;Release-2024;Release-2025</Configurations>
+	</PropertyGroup>
+
+	<!-- Nuget Packages -->
+	<ItemGroup>
+		<PackageReference Include="Serilog" Version="4.3.0" />
+		<PackageReference Include="stdole" Version="17.14.40260" />
+	</ItemGroup>
+
+	<!-- Assembly References -->
+	<ItemGroup>
+		<Reference Include="Autodesk.Inventor.Interop">
+			<HintPath>$(ProgramFiles)\Autodesk\Inventor $(InventorVersion)\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
+			<!-- Required For Isolated Addin -->
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+	<!-- File References -->
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+	</ItemGroup>
+	<PropertyGroup>
+		<ApplicationManifest>IsolatedInventorAddin.manifest</ApplicationManifest>
+	</PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Properties\Info32x32.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<AdditionalFiles Remove="IsolatedInventorAddin.manifest" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="IsolatedInventorAddin.addin">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<!-- This 'PropertyGroup' section specifies where the plugin is being installed. -->
+	<PropertyGroup>
+		<!-- Inventor Plugin Folder - Per Machine, Version Dependent -->
+		<!--<AppPluginOutputPath>$(ProgramData)\Autodesk\Inventor $(InventorVersion)\Addins</AppPluginOutputPath>-->
+		<!-- Inventor Plugin Folder - Per User, Version Dependent -->
+		<AppPluginOutputPath>$(AppData)\Autodesk\Inventor $(InventorVersion)\Addins</AppPluginOutputPath>
+		<!-- Inventor Plugin Folder - Per User, Version Independent -->
+		<!--<AppPluginOutputPath>$(AppData)\Autodesk\ApplicationPlugins</AppPluginOutputPath>-->
+	</PropertyGroup>
+
+	<!-- This 'Target' section acts as the post-clean events. The newer 'SDK-style' version of a .target file. -->
+	<Target Name="CleanAppPluginOutputPath" AfterTargets="Clean">
+		<RemoveDir Directories="$(AppPluginOutputPath)\$(MSBuildProjectName).bundle\" />
+	</Target>
+
+	<!-- This 'Target' section acts as the post-build events. The newer 'SDK-style' version of a .target file. -->
+	<Target Name="BuildAppPluginOutputPath" AfterTargets="Build">
+		<Copy SourceFiles="$(ProjectDir)PackageContents.xml" DestinationFolder="$(AppPluginOutputPath)\$(MSBuildProjectName).bundle\" />
+
+		<ItemGroup>
+			<PluginBundle Include="$(TargetDir)*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PluginBundle)" DestinationFolder="$(AppPluginOutputPath)\$(MSBuildProjectName).bundle\Contents\" />
+	</Target>
+</Project>

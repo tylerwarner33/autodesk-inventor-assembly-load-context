@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ApplicationPackage SchemaVersion="1.0" Version="1.0" ProductCode="{426BA851-0887-4B28-998B-A600BC5282A7}" Name="IsolatedInventorAddin" Description="IsolatedInventorAddin" Author="Tyler Warner">
+	<CompanyDetails Name="IMAGINiT Technologies, Inc." Url="www.IMAGINiT.com"  />
+	<Components>
+		<!-- For Inventor Engine, "Platform" attribute must be "Inventor" -->
+		<RuntimeRequirements  OS="Win64" Platform="Inventor" />
+
+		<!-- For Inventor Plug-in, the "Module" attribute must point to the .addin manifest file. -->
+		<ComponentEntry
+			LoadOnAutoCADStartup="False"
+			LoadOnCommandInvocation="False"
+			AppDescription="IsolatedInventorAddin App Package."
+			ModuleName="./Contents/IsolatedInventorAddin.addin"
+			AppName="IsolatedInventorAddin"/>
+	</Components>
+	<EnvironmentVariables>
+	</EnvironmentVariables>
+</ApplicationPackage>

@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsolatedInventorAddin", "IsolatedInventorAddin.csproj", "{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug-2023|Any CPU = Debug-2023|Any CPU
+		Debug-2024|Any CPU = Debug-2024|Any CPU
+		Debug-2025|Any CPU = Debug-2025|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Release-2023|Any CPU = Release-2023|Any CPU
+		Release-2024|Any CPU = Release-2024|Any CPU
+		Release-2025|Any CPU = Release-2025|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug-2023|Any CPU.ActiveCfg = Debug-2023|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug-2023|Any CPU.Build.0 = Debug-2023|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug-2024|Any CPU.ActiveCfg = Debug-2024|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug-2024|Any CPU.Build.0 = Debug-2024|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug-2025|Any CPU.ActiveCfg = Debug-2025|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Debug-2025|Any CPU.Build.0 = Debug-2025|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release-2023|Any CPU.ActiveCfg = Release-2023|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release-2023|Any CPU.Build.0 = Release-2023|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release-2024|Any CPU.ActiveCfg = Release-2024|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release-2024|Any CPU.Build.0 = Release-2024|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release-2025|Any CPU.ActiveCfg = Release-2025|Any CPU
+		{95213A3B-7A8A-4CD9-A7FD-839A0C77D8AB}.Release-2025|Any CPU.Build.0 = Release-2025|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF11F978-4DEB-4811-AF3B-8BF30A30FA37}
+	EndGlobalSection
+EndGlobal
