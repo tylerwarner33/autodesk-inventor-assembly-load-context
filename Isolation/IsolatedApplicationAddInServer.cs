@@ -3,16 +3,16 @@
 namespace IsolatedInventorAddin.Isolation;
 
 /// <summary>
-/// <see cref="ApplicationAddInServer" /> is the standard entry point of the Inventor addin.
-/// This class is extended to have fully isolated addin dependency container.
-/// Inherit this class and add custom logic to overrides of <see cref="OnActivate" /> or <see cref="OnDeactivate" />.
+///	<see cref="ApplicationAddInServer" /> is the standard entry point of the Inventor addin.
+///	This class is extended to have fully isolated addin dependency container.
+///	Inherit this class and add custom logic to overrides of <see cref="OnActivate" /> or <see cref="OnDeactivate" />.
 /// </summary>
 /// <remarks>
-/// Must set 'Private' to 'False' on 'Autodesk.Inventor.Interop' project file reference.
-/// References:
-/// <a href="https://github.com/Nice3point/RevitToolkit/blob/06be21872e7b4b0f0ed0c246f57df79608a90476/source/Nice3point.Revit.Toolkit/External/ExternalApplication.cs">
-///	GitHub/RevitToolkit/ExternalApplication.cs
-/// </a>
+///	Must set 'Private' to 'False' on 'Autodesk.Inventor.Interop' project file reference.
+///	References:
+///	<a href="https://github.com/Nice3point/RevitToolkit/blob/06be21872e7b4b0f0ed0c246f57df79608a90476/source/Nice3point.Revit.Toolkit/External/ExternalApplication.cs">
+///		GitHub/RevitToolkit/ExternalApplication.cs
+///	</a>
 /// </remarks>
 public abstract class IsolatedApplicationAddInServer : ApplicationAddInServer
 {

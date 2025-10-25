@@ -6,20 +6,20 @@ using System.Runtime.Loader;
 namespace IsolatedInventorAddin.Isolation;
 
 /// <summary>
-/// Isolated addin dependency container.
+///	Isolated addin dependency container.
 /// </summary>
 /// <remarks>
-/// <a href="https://learn.microsoft.com/en-us/dotnet/core/tutorials/creating-app-with-plugin-support">
-///	Microsoft/Tutorials/Plugins
-/// </a>,
-/// <a href="https://github.com/dotnet/coreclr/blob/v2.1.0/Documentation/design-docs/assemblyloadcontext.md">
-///	GitHub/DotNet/CoreCLR
-/// </a>
+///	<a href="https://learn.microsoft.com/en-us/dotnet/core/tutorials/creating-app-with-plugin-support">
+///		Microsoft/Tutorials/Plugins
+///	</a>,
+///	<a href="https://github.com/dotnet/coreclr/blob/v2.1.0/Documentation/design-docs/assemblyloadcontext.md">
+///		GitHub/DotNet/CoreCLR
+///	</a>
 /// </remarks>
 internal sealed class AddinLoadContext : AssemblyLoadContext
 {
 	/// <summary>
-	/// Addins contexts storage.
+	///	Addins contexts storage.
 	/// </summary>
 	private static readonly Dictionary<string, AddinLoadContext> _dependenciesProviders = new(1);
 
@@ -35,7 +35,7 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	}
 
 	/// <summary>
-	/// Resolve and load dependency any time one is loaded if it exists in the isolated addin dependency container.
+	///	Resolve and load dependency any time one is loaded if it exists in the isolated addin dependency container.
 	/// </summary>
 	protected override Assembly? Load(AssemblyName assemblyName)
 	{
@@ -47,7 +47,7 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	}
 
 	/// <summary>
-	/// Resolve and load unmanaged native dependency any time one is loaded if it exists in the isolated addin dependency container.
+	///	Resolve and load unmanaged native dependency any time one is loaded if it exists in the isolated addin dependency container.
 	/// </summary>
 	protected override IntPtr LoadUnmanagedDll(string assemblyName)
 	{
@@ -69,7 +69,7 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	}
 
 	/// <summary>
-	/// Get or create a new isolated context for the type.
+	///	Get or create a new isolated context for the type.
 	/// </summary>
 	public static AddinLoadContext GetDependenciesProvider(Type type)
 	{
@@ -88,7 +88,7 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	}
 
 	/// <summary>
-	/// Create new instance in the separated context.
+	///	Create new instance in the separated context.
 	/// </summary>
 	public object CreateAssemblyInstance(Type type)
 	{
@@ -99,10 +99,10 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	}
 
 	/// <summary>
-	/// Execute <see cref="ApplicationAddInServer.Activate" /> method in the isolated context.
+	///	Execute <see cref="ApplicationAddInServer.Activate" /> method in the isolated context.
 	/// </summary>
 	/// <remarks>
-	/// Matches parameter format of <see cref="ApplicationAddInServer.Activate" /> method.
+	///	Matches parameter format of <see cref="ApplicationAddInServer.Activate" /> method.
 	/// </remarks>
 	public static void Invoke(object instance, string methodName, ApplicationAddInSite application, bool firstTime)
 	{
@@ -126,10 +126,10 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	}
 
 	/// <summary>
-	/// Execute <see cref="ApplicationAddInServer.Deactivate" /> method in the isolated context.
+	///	Execute <see cref="ApplicationAddInServer.Deactivate" /> method in the isolated context.
 	/// </summary>
 	/// <remarks>
-	/// Matches parameter format of <see cref="ApplicationAddInServer.Deactivate" /> method.
+	///	Matches parameter format of <see cref="ApplicationAddInServer.Deactivate" /> method.
 	/// </remarks>
 	public static void Invoke(object instance, string methodName)
 	{

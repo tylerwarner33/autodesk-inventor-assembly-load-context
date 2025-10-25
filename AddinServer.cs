@@ -6,9 +6,8 @@ using System.Runtime.InteropServices;
 namespace IsolatedInventorAddin;
 
 /// <summary>
-/// This is the primary <see cref="AddinServer"/> class that implements the <see cref="ApplicationAddInServer"/> interface
-/// that all Inventor add-ins are required to implement. The communication between Inventor and
-/// the add-in is via the methods on this interface.
+///	This is the primary <see cref="AddinServer"/> class that implements the <see cref="ApplicationAddInServer"/> interface that all Inventor add-ins are required to implement. 
+///	The communication between Inventor and the add-in is via the methods on this interface.
 /// </summary>
 [Guid("963308E2-D850-466D-A1C5-503A2E171552")]
 public class AddinServer : IsolatedApplicationAddInServer

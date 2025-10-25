@@ -52,7 +52,7 @@
 
 		<!-- Nuget Package Library Files Might Not Copy To Output Path Without This -->
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-		<Configurations>Debug;Release;Debug-2023;Debug-2024;Debug-2025;Release-2023;Release-2024;Release-2025</Configurations>
+		<Configurations>Debug;Release;Debug-2023;Debug-2024;Debug-2025;Release-2023;Release-2024;Release-2025;Debug-2026</Configurations>
 	</PropertyGroup>
 
 	<!-- Nuget Packages -->

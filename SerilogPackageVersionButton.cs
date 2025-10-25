@@ -19,17 +19,31 @@ internal class SerilogPackageVersionButton(Inventor.Application inventorApplicat
 		  largeImage: Properties.Resources.Info32x32,
 		  buttonDisplayType: ButtonDisplayEnum.kDisplayTextInLearningMode)
 {
+	private readonly Inventor.Application _inventorApplication = inventorApplication;
+
 	override protected void ButtonDefinition_OnExecute(NameValueMap context)
 	{
 		try
 		{
-			string serilogVersionInfo = GetAssemblyVersionInfo(nameof(Serilog), typeof(Serilog.Log));
-			MessageBox.Show(serilogVersionInfo);
+			string title = $"Inventor {GetInventorDisplayVersion(_inventorApplication)}";
+			string assemblyVersionInfo = GetAssemblyVersionInfo(nameof(Serilog), typeof(Serilog.Log));
+			MessageBox.Show(assemblyVersionInfo, title);
 		}
 		catch (Exception ex)
 		{
 			MessageBox.Show(ex.ToString());
 		}
+	}
+
+	private static string GetInventorDisplayVersion(Inventor.Application inventorApplication)
+	{
+		SoftwareVersion softwareVersion = inventorApplication.SoftwareVersion;
+
+		string? displayVersion = softwareVersion.DisplayVersion;
+		if (string.IsNullOrWhiteSpace(displayVersion) is false)
+			return displayVersion;
+
+		return $"{softwareVersion.Major}.{softwareVersion.Minor}";
 	}
 
 	private static string GetAssemblyVersionInfo(string targetAssemblyName, Type targetAssemblyType)
@@ -127,7 +141,6 @@ Exception Stack Trace: {ex.StackTrace}";
 		 => stringBuilder.Append($"     {key}").Append(": ").AppendLine(value ?? "<n/a>");
 }
 
-
 internal abstract class Button : IDisposable
 {
 	private ButtonDefinition? _buttonDefinition;
@@ -199,13 +212,13 @@ internal abstract class Button : IDisposable
 	abstract protected void ButtonDefinition_OnExecute(NameValueMap context);
 
 	/// <summary>
-	/// Gets the standard sized icon (32px x 32px) as stdole.IPictureDisp.
-	/// Requires stdole Nuget package (https://www.nuget.org/packages/stdole/).
+	///	Gets the standard sized icon (32px x 32px) as stdole.IPictureDisp.
+	///	Requires stdole Nuget package (https://www.nuget.org/packages/stdole/).
 	/// </summary>
 	/// <remarks>
-	/// Add the image to the project Resources.resx designer in the Properties folder, which will add it to the project resources.
-	/// 'Build Action' property on the image must be set to 'EmbeddedResource'.
-	/// 'Copy To Output Directory' property on the image must be set to 'Do Not Copy'.
+	///	Add the image to the project Resources.resx designer in the Properties folder, which will add it to the project resources.
+	///	'Build Action' property on the image must be set to 'EmbeddedResource'.
+	///	'Copy To Output Directory' property on the image must be set to 'Do Not Copy'.
 	/// </remarks>
 	private class PictureConverter : AxHost
 	{
