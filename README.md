@@ -1,10 +1,10 @@
-# IsolatedInventorAddin
+# Isolated Inventor Add-in Sample
 
 ![Inventor Versions](https://img.shields.io/badge/Inventor-2023--2026-blue.svg)
 [![.NET Versions](https://img.shields.io/badge/.NET-4.8--8.0-blue.svg)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-A minimal Autodesk Inventor add-in sample that demonstrates safe dependency isolation. Inventor ships with specific assembly versions. Referencing newer (or different) versions in an add-in often causes binding conflicts. This sample allows the use of NuGet package/assembly versions that differ from the ones bundled with Inventor by isolating the add-in’s dependencies in a custom load context.
+A minimal Autodesk Inventor add-in sample that demonstrates safe dependency isolation. Inventor ships with specific assembly versions. Referencing newer (or different) versions in an add-in often causes binding conflicts. This sample allows the use of NuGet package/assembly versions that differ from the ones bundled with Inventor by isolating the add-inâ€™s dependencies in a custom load context.
 
 ![SerilogVersion](Images/Ribbon_SerilogVersion.png)
 ![Inventor 2026.1](Images/Dialog_Inventor2026.1.png)
@@ -31,9 +31,9 @@ git clone https://github.com/tylerwarner33/autodesk-inventor-assembly-load-conte
   - Inherits `Isolation/IsolatedApplicationAddInServer.cs` which implements `Inventor.ApplicationAddInServer`.
 - .NET 8 / Inventor 2025+:
   - `Isolation/AddinLoadContext.cs` defines a dedicated `AssemblyLoadContext` and uses `AssemblyDependencyResolver` so the add-in resolves managed and native dependencies from its own output folder first.
-- .NET Framework 4.8 / Inventor 2023–2024:
+- .NET Framework 4.8 / Inventor 2023â€“2024:
   - The add-in runs in the default `AppDomain`. The sample still reports assembly identity to compare behavior across targets.
-- The Interop assembly (`Autodesk.Inventor.Interop`) is referenced with `<Private>False</Private>` so it’s always loaded from Inventor, while the NuGet dependencies (ex. `Serilog`) are copied beside the add-in and loaded in isolation.
+- The Interop assembly (`Autodesk.Inventor.Interop`) is referenced with `<Private>False</Private>` so itâ€™s always loaded from Inventor, while the NuGet dependencies (ex. `Serilog`) are copied beside the add-in and loaded in isolation.
 - The `Serilog Version` button (`SerilogPackageVersionButton`) shows the loaded Serilog version and the load context/app domain to verify isolation.
 - The project uses MSBuild logic to pick the Inventor version and target framework based on the build configuration.
 
