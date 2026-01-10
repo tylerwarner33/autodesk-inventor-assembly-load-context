@@ -9,10 +9,6 @@ namespace IsolatedInventorAddin.Isolation;
 /// </summary>
 /// <remarks>
 ///	Must set 'Private' to 'False' on 'Autodesk.Inventor.Interop' project file reference.
-///	References:
-///	<a href="https://github.com/Nice3point/RevitToolkit/blob/06be21872e7b4b0f0ed0c246f57df79608a90476/source/Nice3point.Revit.Toolkit/External/ExternalApplication.cs">
-///		GitHub/RevitToolkit/ExternalApplication.cs
-///	</a>
 /// </remarks>
 public abstract class IsolatedApplicationAddInServer : ApplicationAddInServer
 {

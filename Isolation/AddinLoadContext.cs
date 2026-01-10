@@ -41,7 +41,7 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	{
 		string? assemblyPath = _resolver.ResolveAssemblyToPath(assemblyName);
 
-		return assemblyPath is not null // && System.IO.File.Exists(assemblyPath)
+		return assemblyPath is not null
 			 ? LoadFromAssemblyPath(assemblyPath)
 			 : null;
 	}
@@ -53,7 +53,7 @@ internal sealed class AddinLoadContext : AssemblyLoadContext
 	{
 		string? assemblyPath = _resolver.ResolveUnmanagedDllToPath(assemblyName);
 
-		return assemblyPath is not null // && System.IO.File.Exists(assemblyPath)
+		return assemblyPath is not null
 			 ? LoadUnmanagedDllFromPath(assemblyPath)
 			 : IntPtr.Zero;
 	}
