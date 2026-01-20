@@ -26,7 +26,10 @@ internal class SerilogPackageVersionButton(Inventor.Application inventorApplicat
 		try
 		{
 			string title = $"Inventor {GetInventorDisplayVersion(_inventorApplication)}";
-			string assemblyVersionInfo = GetAssemblyVersionInfo(nameof(Serilog), typeof(Serilog.Log));
+
+			AssemblyInspector inspector = new();
+			string assemblyVersionInfo = inspector.GetSerilogVersionInfo();
+
 			MessageBox.Show(assemblyVersionInfo, title);
 		}
 		catch (Exception ex)
@@ -45,21 +48,23 @@ internal class SerilogPackageVersionButton(Inventor.Application inventorApplicat
 
 		return $"{softwareVersion.Major}.{softwareVersion.Minor}";
 	}
+}
 
-	private static string GetAssemblyVersionInfo(string targetAssemblyName, Type targetAssemblyType)
+internal class AssemblyInspector
+{
+	public static string GetAssemblyVersionInfo(string targetAssemblyName, Type targetAssemblyType)
 	{
 		try
 		{
 			var stringBuilder = new System.Text.StringBuilder();
 
-			// Requesting add-in assembly.
-			var addinAssembly = typeof(SerilogPackageVersionButton).Assembly;
+			var addinAssembly = typeof(AssemblyInspector).Assembly;
 #if NETCOREAPP
 			var addinAssemblyLoadContext = AssemblyLoadContext.GetLoadContext(addinAssembly);
 			var addinAssemblyLoadContextName = addinAssemblyLoadContext?.Name ?? "<default>";
 #else
-			var addinAppDomain = AppDomain.CurrentDomain;
-			var addinAppDomainName = addinAppDomain?.FriendlyName ?? "<default>";
+         var addinAppDomain = AppDomain.CurrentDomain;
+         var addinAppDomainName = addinAppDomain?.FriendlyName ?? "<default>";
 #endif
 
 			stringBuilder.AppendLine("****  Requesting Add-In Assembly  ****");
@@ -67,7 +72,7 @@ internal class SerilogPackageVersionButton(Inventor.Application inventorApplicat
 #if NETCOREAPP
 			AppendKeyValuePair(stringBuilder, "AssemblyLoadContext", addinAssemblyLoadContextName);
 #else
-			AppendKeyValuePair(stringBuilder, "AppDomain", addinAppDomainName);
+         AppendKeyValuePair(stringBuilder, "AppDomain", addinAppDomainName);
 #endif
 			AppendKeyValuePair(stringBuilder, "Version", addinAssembly.GetName().Version?.ToString());
 			AppendKeyValuePair(stringBuilder, "Path", addinAssembly.Location);
@@ -79,8 +84,8 @@ internal class SerilogPackageVersionButton(Inventor.Application inventorApplicat
 			var usedTargetAssemblyLoadContext = AssemblyLoadContext.GetLoadContext(usedTargetAssembly);
 			var usedTargetAssemblyLoadContextName = usedTargetAssemblyLoadContext?.Name ?? "<default>";
 #else
-			var usedTargetAppDomain = AppDomain.CurrentDomain;
-			var usedTargetAppDomainName = addinAppDomain?.FriendlyName ?? "<default>";
+         var usedTargetAppDomain = AppDomain.CurrentDomain;
+         var usedTargetAppDomainName = addinAppDomain?.FriendlyName ?? "<default>";
 #endif
 
 			stringBuilder.AppendLine($"****  Target '{targetAssemblyName}' Assembly Actually Used  ****");
@@ -113,18 +118,18 @@ internal class SerilogPackageVersionButton(Inventor.Application inventorApplicat
 				stringBuilder.AppendLine();
 			}
 #else
-			stringBuilder.AppendLine($"****  All Loaded '{targetAssemblyName}' Assemblies  ****");
-			var assemblies = AppDomain.CurrentDomain
-				 .GetAssemblies()
-				 .Where(assembly => string.Equals(assembly.GetName().Name, targetAssemblyName, StringComparison.Ordinal))
-				 .OrderBy(assembly => assembly.GetName().Version);
+         stringBuilder.AppendLine($"****  All Loaded '{targetAssemblyName}' Assemblies  ****");
+         var assemblies = AppDomain.CurrentDomain
+               .GetAssemblies()
+               .Where(assembly => string.Equals(assembly.GetName().Name, targetAssemblyName, StringComparison.Ordinal))
+               .OrderBy(assembly => assembly.GetName().Version);
 
-			foreach (var assembly in assemblies)
-			{
-				AppendKeyValuePair(stringBuilder, "Version", assembly.GetName().Version?.ToString());
-				AppendKeyValuePair(stringBuilder, "Path", assembly.Location);
-				stringBuilder.AppendLine();
-			}
+         foreach (var assembly in assemblies)
+         {
+               AppendKeyValuePair(stringBuilder, "Version", assembly.GetName().Version?.ToString());
+               AppendKeyValuePair(stringBuilder, "Path", assembly.Location);
+               stringBuilder.AppendLine();
+         }
 #endif
 
 			return stringBuilder.ToString();
@@ -139,6 +144,14 @@ Exception Stack Trace: {ex.StackTrace}";
 
 	private static void AppendKeyValuePair(System.Text.StringBuilder stringBuilder, string key, string? value)
 		 => stringBuilder.Append($"     {key}").Append(": ").AppendLine(value ?? "<n/a>");
+
+	/// <summary>
+	///	Gets Serilog version info with the type resolved inside the isolated context.
+	/// </summary>
+	public string GetSerilogVersionInfo()
+	{
+		return GetAssemblyVersionInfo(nameof(Serilog), typeof(Serilog.Log));
+	}
 }
 
 internal abstract class Button : IDisposable
