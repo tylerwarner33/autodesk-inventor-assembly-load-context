@@ -39,7 +39,7 @@ git clone https://github.com/tylerwarner33/autodesk-inventor-assembly-load-conte
 
 ## Resources
 
-- TylerWarner.dev Blog Post: [Isolate Inventor Add-In](https://tylerwarner.dev/how-to-use-assemblyloadcontext-for-isolating-inventor-addin-dependencies)
+- TylerWarner.dev Blog Post: [Isolate Inventor Add-In](https://tylerwarner.dev/assemblyloadcontext-for-inventor-addins)
 - Microsoft Learn: [System.Runtime.Loader.AssemblyLoadContext](https://learn.microsoft.com/en-us/dotnet/core/dependency-loading/understanding-assemblyloadcontext)
 - Microsoft GitHub: [AssemblyLoadContext](https://github.com/dotnet/coreclr/blob/v2.1.0/Documentation/design-docs/assemblyloadcontext.md)
 
