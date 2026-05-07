@@ -10,7 +10,11 @@ namespace IsolatedInventorAddin;
 ///	The communication between Inventor and the add-in is via the methods on this interface.
 /// </summary>
 [Guid("963308E2-D850-466D-A1C5-503A2E171552")]
+#if INVENTOR_2027_OR_GREATER
+public class AddinServer : ApplicationAddInServer
+#else
 public class AddinServer : IsolatedApplicationAddInServer
+#endif
 {
 	private Inventor.Application? _inventorApplication;
 	private UserInterfaceEvents? _userInterfaceEvents;
@@ -32,19 +36,36 @@ public class AddinServer : IsolatedApplicationAddInServer
 
 	public static string? AppPrefixWithVersion => $"{AppPrefix} {AppVersion}";
 
+
+#if INVENTOR_2027_OR_GREATER
+	public void Activate(ApplicationAddInSite applicationAddInSite, bool firstTime)
+#else
 	public override void OnActivate()
+#endif
 	{
 		try
 		{
+#if INVENTOR_2027_OR_GREATER
+			_inventorApplication = applicationAddInSite.Application;
+#else
 			_inventorApplication = ApplicationAddInSite.Application;
+#endif
 			_userInterfaceEvents = _inventorApplication.UserInterfaceManager.UserInterfaceEvents;
 
 			_userInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate = new UserInterfaceEventsSink_OnResetRibbonInterfaceEventHandler(UserInterfaceEvents_OnResetRibbonInterface);
 			_userInterfaceEvents.OnResetRibbonInterface += _userInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
 
+#if INVENTOR_2027_OR_GREATER
+			_packageVersionButton = new SerilogPackageVersionButton(applicationAddInSite.Application);
+#else
 			_packageVersionButton = new SerilogPackageVersionButton(ApplicationAddInSite.Application);
+#endif
 
+#if INVENTOR_2027_OR_GREATER
+			if (firstTime)
+#else
 			if (FirstTime)
+#endif
 				AddRibbonCustomization();
 		}
 		catch (Exception ex)
@@ -53,7 +74,11 @@ public class AddinServer : IsolatedApplicationAddInServer
 		}
 	}
 
+#if INVENTOR_2027_OR_GREATER
+	public void Deactivate()
+#else
 	public override void OnDeactivate()
+#endif
 	{
 		try
 		{
@@ -78,6 +103,13 @@ public class AddinServer : IsolatedApplicationAddInServer
 			MessageBox.Show(ex.ToString());
 		}
 	}
+
+#if INVENTOR_2027_OR_GREATER
+	public object? Automation { get; set; } = null;
+
+	[Obsolete("Deprecated in the Inventor API. Required for legacy compatibility.")]
+	public void ExecuteCommand(int CommandID) { }
+#endif
 
 	private void UserInterfaceEvents_OnResetRibbonInterface(NameValueMap context)
 	{

@@ -1,12 +1,13 @@
 # Isolated Inventor Add-in Sample
 
-![Inventor Versions](https://img.shields.io/badge/Inventor-2023--2026-blue.svg)
-[![.NET Versions](https://img.shields.io/badge/.NET-4.8--8.0-blue.svg)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+![Inventor Versions](https://img.shields.io/badge/Inventor-2023--2027-blue.svg)
+[![.NET Versions](https://img.shields.io/badge/.NET-4.8--10.0-blue.svg)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 A minimal Autodesk Inventor add-in sample that demonstrates safe dependency isolation. Inventor ships with specific assembly versions. Referencing newer (or different) versions in an add-in often causes binding conflicts. This sample allows the use of NuGet package/assembly versions that differ from the ones bundled with Inventor by isolating the add-in’s dependencies in a custom load context.
 
 ![SerilogVersion](Images/Ribbon_SerilogVersion.png)
+![Inventor 2027](Images/Dialog_Inventor2027.0.png)
 ![Inventor 2026.1](Images/Dialog_Inventor2026.1.png)
 ![Inventor 2023.6](Images/Dialog_Inventor2023.6.png)
 
@@ -18,13 +19,22 @@ A minimal Autodesk Inventor add-in sample that demonstrates safe dependency isol
 ```
 git clone https://github.com/tylerwarner33/autodesk-inventor-assembly-load-context.git
 ```
-2. Choose a configuration: `Debug-2026`, `Debug-2025`, `Debug-2024`, `Debug-2023` (or the corresponding `Release-*`) to work with that Inventor version.
+2. Choose a configuration: `Debug-2027`, `Debug-2026`, `Debug-2025`, `Debug-2024`, `Debug-2023` (or the corresponding `Release-*`) to work with that Inventor version.
 3. Build the solution. The post-build step creates a bundle and copies it to (replace `<version>` and paste in file explorer):
    - `%AppData%\Autodesk\Inventor <version>\Addins\IsolatedInventorAddin.bundle\Contents\`
 4. Run the solution (Inventor will launch automatically using the selected version, as configured in the project file).
 5. Use the `Serilog Version` button to display the version/context of the loaded Serilog assembly.
 
 ### How It Works
+
+#### 2027
+
+- Autodesk added internal support for add-in isolation in Inventor 2027, allowing add-ins to be loaded in a separate `AssemblyLoadContext` without the need for custom load context implementation.
+- `IsolatedInventorAddin.addin`
+  - Add the `<UseInventorAssemblyContext>0</UseInventorAssemblyContext>` set to `0` (zero) to use a custom AssemblyLoadContext or `1` to use Inventor's.
+- No other changes to the add-in are required.
+
+#### 2026 - 2023
 
 - `AddinServer.cs`
   - __The main entry point for the add-in using the `OnActivate()` and `OnDeactivate()` methods. Custom add-in logic added here.__
@@ -42,6 +52,7 @@ git clone https://github.com/tylerwarner33/autodesk-inventor-assembly-load-conte
 - TylerWarner.dev Blog Post: [Isolate Inventor Add-In](https://tylerwarner.dev/assemblyloadcontext-for-inventor-addins)
 - Microsoft Learn: [System.Runtime.Loader.AssemblyLoadContext](https://learn.microsoft.com/en-us/dotnet/core/dependency-loading/understanding-assemblyloadcontext)
 - Microsoft GitHub: [AssemblyLoadContext](https://github.com/dotnet/coreclr/blob/v2.1.0/Documentation/design-docs/assemblyloadcontext.md)
+- Autodesk Inventor 2027 Documentation: [Creating An Inventor Add-In](https://help.autodesk.com/view/INVNTOR/2027/ENU/?guid=GUID-52422162-1784-4E8F-B495-CDB7BE9987AB)
 
 ## License
 

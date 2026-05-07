@@ -16,4 +16,7 @@
 	<SupportedSoftwareVersionGreaterThan>26..</SupportedSoftwareVersionGreaterThan>
 	<LoadOnStartUp>1</LoadOnStartUp>
 	<Hidden>0</Hidden>
+
+	<!-- Use separate AssemblyLoadContext from Inventor to prevent libary version conflicts. -->
+	<UseInventorAssemblyContext>0</UseInventorAssemblyContext>
 </Addin>

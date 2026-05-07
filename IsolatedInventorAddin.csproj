@@ -20,10 +20,17 @@
 				<TargetFramework>net8.0-windows</TargetFramework>
 			</PropertyGroup>
 		</When>
-		<Otherwise>
+		<When Condition="$(Configuration.Contains('2026'))">
 			<PropertyGroup>
 				<InventorVersion>2026</InventorVersion>
 				<TargetFramework>net8.0-windows</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<InventorVersion>2027</InventorVersion>
+				<TargetFramework>net10.0-windows</TargetFramework>
+				<DefineConstants>$(DefineConstants);INVENTOR_2027_OR_GREATER</DefineConstants>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
@@ -38,8 +45,7 @@
 		<AssemblyTitle>IsolatedInventorAddin</AssemblyTitle>
 		<Description>IsolatedInventorAddin</Description>
 		<Product>IsolatedInventorAddin</Product>
-		<Version>1.0.0</Version>
-		<FileVersion>1.0.0</FileVersion>
+		<Version>1.1.0</Version>
 
 		<!-- SDK-Style Project Properties -->
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -52,12 +58,12 @@
 
 		<!-- Nuget Package Library Files Might Not Copy To Output Path Without This -->
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-		<Configurations>Debug;Release;Debug-2023;Debug-2024;Debug-2025;Release-2023;Release-2024;Release-2025;Debug-2026</Configurations>
+		<Configurations>Debug;Debug-2023;Debug-2024;Debug-2025;Debug-2026;Debug-2027;Release;Release-2023;Release-2024;Release-2025;Release-2026;Release-2027</Configurations>
 	</PropertyGroup>
 
 	<!-- Nuget Packages -->
 	<ItemGroup>
-		<PackageReference Include="Serilog" Version="4.3.0" />
+		<PackageReference Include="Serilog" Version="4.3.1" />
 		<PackageReference Include="stdole" Version="17.14.40260" />
 	</ItemGroup>
 
@@ -93,10 +99,15 @@
 
 	<!-- This 'PropertyGroup' section specifies where the plugin is being installed. -->
 	<PropertyGroup>
-		<!-- Inventor Plugin Folder - Per Machine, Version Dependent -->
+		<!-- Inventor Plugin Folder - Per Machine, Version Dependent 2023- -->
 		<!--<AppPluginOutputPath>$(ProgramData)\Autodesk\Inventor $(InventorVersion)\Addins</AppPluginOutputPath>-->
+		
+		<!-- Inventor Plugin Folder - Per Machine, Version Dependent 2024+-->
+		<!--<AppPluginOutputPath>$(ProgramFiles)\Autodesk\Inventor $(InventorVersion)\Bin\Addins</AppPluginOutputPath>-->
+		
 		<!-- Inventor Plugin Folder - Per User, Version Dependent -->
 		<AppPluginOutputPath>$(AppData)\Autodesk\Inventor $(InventorVersion)\Addins</AppPluginOutputPath>
+		
 		<!-- Inventor Plugin Folder - Per User, Version Independent -->
 		<!--<AppPluginOutputPath>$(AppData)\Autodesk\ApplicationPlugins</AppPluginOutputPath>-->
 	</PropertyGroup>

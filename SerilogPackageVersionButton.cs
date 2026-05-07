@@ -1,4 +1,5 @@
 using Inventor;
+using System.Reflection;
 using System.Runtime.InteropServices;
 #if NETCOREAPP
 using System.Runtime.Loader;
@@ -75,6 +76,7 @@ internal class AssemblyInspector
          AppendKeyValuePair(stringBuilder, "AppDomain", addinAppDomainName);
 #endif
 			AppendKeyValuePair(stringBuilder, "Version", addinAssembly.GetName().Version?.ToString());
+			AppendKeyValuePair(stringBuilder, "ProductVersion", addinAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion?.Split('-', '+')[0]);
 			AppendKeyValuePair(stringBuilder, "Path", addinAssembly.Location);
 			stringBuilder.AppendLine();
 
@@ -94,6 +96,7 @@ internal class AssemblyInspector
 			AppendKeyValuePair(stringBuilder, "AssemblyLoadContext", usedTargetAssemblyLoadContextName);
 #endif
 			AppendKeyValuePair(stringBuilder, "Version", usedTargetAssembly.GetName().Version?.ToString());
+			AppendKeyValuePair(stringBuilder, "ProductVersion", usedTargetAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion?.Split('-', '+')[0]);
 			AppendKeyValuePair(stringBuilder, "Path", usedTargetAssembly.Location);
 			stringBuilder.AppendLine();
 
@@ -110,10 +113,11 @@ internal class AssemblyInspector
 			foreach (var group in groups)
 			{
 				AppendKeyValuePair(stringBuilder, "AssemblyLoadContext", group.Key);
-				foreach (var assembly in group)
+				foreach (var assemblyPair in group)
 				{
-					AppendKeyValuePair(stringBuilder, "Version", assembly.Assembly.GetName().Version?.ToString());
-					AppendKeyValuePair(stringBuilder, "Path", assembly.Assembly.Location);
+					AppendKeyValuePair(stringBuilder, "Version", assemblyPair.Assembly.GetName().Version?.ToString());
+					AppendKeyValuePair(stringBuilder, "ProductVersion", assemblyPair.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion?.Split('-', '+')[0]);
+					AppendKeyValuePair(stringBuilder, "Path", assemblyPair.Assembly.Location);
 				}
 				stringBuilder.AppendLine();
 			}
@@ -127,6 +131,7 @@ internal class AssemblyInspector
          foreach (var assembly in assemblies)
          {
                AppendKeyValuePair(stringBuilder, "Version", assembly.GetName().Version?.ToString());
+               AppendKeyValuePair(stringBuilder, "ProductVersion", assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion?.Split('-', '+')[0]);
                AppendKeyValuePair(stringBuilder, "Path", assembly.Location);
                stringBuilder.AppendLine();
          }
