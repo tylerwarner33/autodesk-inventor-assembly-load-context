@@ -87,7 +87,7 @@ public abstract class IsolatedApplicationAddInServer : ApplicationAddInServer
 	}
 
 	[Obsolete("Deprecated in the Inventor API. Required for legacy compatibility.")]
-	public void ExecuteCommand(int CommandID) { }
+	public void ExecuteCommand(int commandId) { }
 
 	/// <summary>
 	///	Overload this method to execute custom logic when the Inventor addin is loaded and <see cref="ApplicationAddInServer.Activate" /> method is executed.
