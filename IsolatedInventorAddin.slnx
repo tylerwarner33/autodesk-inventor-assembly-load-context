@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Debug-2023" />
+    <BuildType Name="Debug-2024" />
+    <BuildType Name="Debug-2025" />
+    <BuildType Name="Debug-2026" />
+    <BuildType Name="Debug-2027" />
+    <BuildType Name="Release" />
+    <BuildType Name="Release-2023" />
+    <BuildType Name="Release-2024" />
+    <BuildType Name="Release-2025" />
+    <BuildType Name="Release-2026" />
+    <BuildType Name="Release-2027" />
+  </Configurations>
+  <Project Path="IsolatedInventorAddin.csproj" />
+</Solution>
