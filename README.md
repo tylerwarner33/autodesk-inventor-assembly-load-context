@@ -49,10 +49,10 @@ git clone https://github.com/tylerwarner33/autodesk-inventor-assembly-load-conte
 
 ## Resources
 
-- TylerWarner.dev Blog Post: [Isolated Autodesk Addins Series](https://help.autodesk.com/view/INVNTOR/2027/ENU/?guid=GUID-52422162-1784-4E8F-B495-CDB7BE9987AB)
+- TylerWarner.dev Blog: [Isolated Autodesk Addins Series](https://help.autodesk.com/view/INVNTOR/2027/ENU/?guid=GUID-52422162-1784-4E8F-B495-CDB7BE9987AB)
 - Microsoft Learn: [System.Runtime.Loader.AssemblyLoadContext](https://learn.microsoft.com/en-us/dotnet/core/dependency-loading/understanding-assemblyloadcontext)
 - Microsoft GitHub: [AssemblyLoadContext](https://github.com/dotnet/coreclr/blob/v2.1.0/Documentation/design-docs/assemblyloadcontext.md)
-- Autodesk Inventor 2027 Documentation: [Creating An Inventor Add-In](https://help.autodesk.com/view/INVNTOR/2027/ENU/?guid=GUID-52422162-1784-4E8F-B495-CDB7BE9987AB)
+- Autodesk Inventor Documentation: [Creating An Inventor Add-In](https://help.autodesk.com/view/INVNTOR/2027/ENU/?guid=GUID-52422162-1784-4E8F-B495-CDB7BE9987AB)
 
 ## License
 
